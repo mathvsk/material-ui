@@ -4,22 +4,19 @@ import {
   Divider,
   Drawer,
   List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
 
 import { IChildren } from '../../interface/IChildren.tsx'
-import { Home } from '@mui/icons-material'
 import { useDrawerContext } from '../../contexts/DrawerContext.tsx'
+import { ListItemLink } from '../listItemLink'
 
 export function SideBar({ children }: IChildren) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext()
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext()
 
   return (
     <>
@@ -51,12 +48,15 @@ export function SideBar({ children }: IChildren) {
 
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Home />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
+              {drawerOptions.map((option) => (
+                <ListItemLink
+                  key={option.path}
+                  to={option.path}
+                  icon={option.icon}
+                  label={option.label}
+                  onClick={mobile ? toggleDrawerOpen : undefined}
+                />
+              ))}
             </List>
           </Box>
         </Box>
