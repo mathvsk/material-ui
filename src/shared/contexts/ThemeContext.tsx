@@ -19,7 +19,7 @@ interface IThemeContext {
 
 const ThemeContext = createContext({} as IThemeContext)
 
-function AppThemeProvider({ children }: IChildren) {
+function AppThemeContext({ children }: IChildren) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   const toggleTheme = useCallback(() => {
@@ -53,4 +53,4 @@ function useAppThemeContext() {
   return useContext(ThemeContext)
 }
 
-export { AppThemeProvider, useAppThemeContext }
+export { AppThemeContext, useAppThemeContext }
