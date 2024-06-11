@@ -2,15 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRoutes } from './routes'
-import { ThemeProvider } from '@mui/material'
-import { LightTheme } from './shared/themes/LightTheme.ts'
+import { AppThemeProvider } from './shared/contexts/ThemeContext.tsx'
+import { CssBaseline } from '@mui/material'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider theme={LightTheme}>
+    <AppThemeProvider>
+      <CssBaseline /> {/* reset css */}
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
-    </ThemeProvider>
+    </AppThemeProvider>
   </React.StrictMode>,
 )

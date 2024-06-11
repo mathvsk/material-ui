@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import { amber, green } from '@mui/material/colors'
 
-export const LightTheme = createTheme({
+export const DarkTheme = createTheme({
   palette: {
     primary: {
       light: green[300],
@@ -16,8 +16,8 @@ export const LightTheme = createTheme({
       contrastText: '#000',
     },
     background: {
-      default: '#f4f4f5', // cor da aplicação
-      paper: '#a3a3a3', // cor de card
+      default: '#303134', // cor da aplicação
+      paper: '#202124', // cor de card
     },
   },
 })
