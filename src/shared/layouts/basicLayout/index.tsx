@@ -8,14 +8,17 @@ import {
 import { IChildren } from '../../interface/IChildren.tsx'
 import { Menu } from '@mui/icons-material'
 import { useDrawerContext } from '../../contexts/DrawerContext.tsx'
+import { ReactNode } from 'react'
 
 interface IBasicLayoutProps extends IChildren {
   title: string
+  toolBar?: ReactNode
 }
 
-export function BasicLayout({ title, children }: IBasicLayoutProps) {
+export function BasicLayout({ title, children, toolBar }: IBasicLayoutProps) {
   const theme = useTheme()
-  const mobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'))
 
   const { toggleDrawerOpen } = useDrawerContext()
 
@@ -23,21 +26,28 @@ export function BasicLayout({ title, children }: IBasicLayoutProps) {
     <Box height={'100%'} display={'flex'} flexDirection={'column'} gap={1}>
       <Box
         padding={theme.spacing(1)}
-        height={theme.spacing(12)}
+        height={theme.spacing(smDown ? 6 : mdDown ? 8 : 12)}
         display={'flex'}
         alignItems={'center'}
         gap={1}
       >
-        {mobile && (
+        {smDown && (
           <IconButton onClick={toggleDrawerOpen}>
             <Menu />
           </IconButton>
         )}
 
-        <Typography variant={'h5'}>{title}</Typography>
+        <Typography
+          variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
+          overflow={'hidden'}
+          whiteSpace={'nowrap'}
+          textOverflow={'ellipsis'}
+        >
+          {title}
+        </Typography>
       </Box>
 
-      <Box>Barra de ferramentas</Box>
+      {toolBar ?? <Box>{toolBar}</Box>}
 
       <Box>{children}</Box>
     </Box>
