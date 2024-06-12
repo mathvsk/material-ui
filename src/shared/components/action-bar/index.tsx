@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Paper, useTheme } from '@mui/material'
+import { Box, Button, Divider, Paper, Skeleton, useTheme } from '@mui/material'
 
 import { Add, ArrowBack, Delete, Save } from '@mui/icons-material'
 
@@ -16,6 +16,12 @@ interface IActionBarProps {
   onClickDelete?: () => void
   onClickSave?: () => void
   onClickSaveAndClose?: () => void
+
+  showNewButtonLoading?: boolean
+  showBackButtonLoading?: boolean
+  showDeleteButtonLoading?: boolean
+  showSaveButtonLoading?: boolean
+  showSaveAndCloseButtonLoading?: boolean
 }
 
 export function ActionBar({
@@ -32,6 +38,12 @@ export function ActionBar({
   onClickDelete,
   onClickSave,
   onClickSaveAndClose,
+
+  showNewButtonLoading = false,
+  showBackButtonLoading = false,
+  showDeleteButtonLoading = false,
+  showSaveButtonLoading = false,
+  showSaveAndCloseButtonLoading = false,
 }: IActionBarProps) {
   const theme = useTheme()
 
@@ -46,7 +58,7 @@ export function ActionBar({
       height={theme.spacing(7)}
       component={Paper}
     >
-      {showSaveButton && (
+      {showSaveButton && !showSaveButtonLoading && (
         <Button
           color="primary"
           disableElevation
@@ -58,7 +70,9 @@ export function ActionBar({
         </Button>
       )}
 
-      {showSaveAndCloseButton && (
+      {showSaveButton && <Skeleton width={110} height={60} />}
+
+      {showSaveAndCloseButton && !showSaveAndCloseButtonLoading && (
         <Button
           color="primary"
           disableElevation
@@ -69,7 +83,10 @@ export function ActionBar({
           Salvar e voltar
         </Button>
       )}
-      {showDeleteButton && (
+
+      {showSaveAndCloseButtonLoading && <Skeleton width={180} height={60} />}
+
+      {showDeleteButton && !showDeleteButtonLoading && (
         <Button
           color="primary"
           disableElevation
@@ -80,7 +97,10 @@ export function ActionBar({
           Apagar
         </Button>
       )}
-      {showNewButton && (
+
+      {showDeleteButtonLoading && <Skeleton width={110} height={60} />}
+
+      {showNewButton && !showNewButtonLoading && (
         <Button
           color="primary"
           disableElevation
@@ -92,9 +112,11 @@ export function ActionBar({
         </Button>
       )}
 
+      {showNewButtonLoading && <Skeleton width={110} height={60} />}
+
       <Divider variant="middle" orientation="vertical" />
 
-      {showBackButton && (
+      {showBackButton && !showBackButtonLoading && (
         <Button
           color="primary"
           disableElevation
@@ -105,6 +127,8 @@ export function ActionBar({
           Voltar
         </Button>
       )}
+
+      {showBackButtonLoading && <Skeleton width={110} height={60} />}
     </Box>
   )
 }
