@@ -1,5 +1,6 @@
 import { Box, Button, Paper, TextField, useTheme } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import { Environment } from '../../environment'
 
 interface IToolBarProps {
   searchText?: string
@@ -35,7 +36,7 @@ export function ToolBar({
         <TextField
           size={'small'}
           value={searchText}
-          placeholder={'Pesquisar...'}
+          placeholder={Environment.SEARCH_INPUT_PLACEHOLDER}
           onChange={(e) => onSearchTextChange?.(e.target.value)}
         />
       )}
