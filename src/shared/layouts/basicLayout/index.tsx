@@ -49,7 +49,9 @@ export function BasicLayout({ title, children, toolBar }: IBasicLayoutProps) {
 
       {toolBar ?? <Box>{toolBar}</Box>}
 
-      <Box>{children}</Box>
+      <Box flex={1} overflow="auto">
+        {children}
+      </Box>
     </Box>
   )
 }
