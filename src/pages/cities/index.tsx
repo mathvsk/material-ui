@@ -3,16 +3,20 @@ import { useSearchParams } from 'react-router-dom'
 import { BasicLayout } from '../../shared/layouts/basic-layout'
 import { ToolBar } from '../../shared/components/tool-bar'
 import { PersonService } from '../../shared/services/api/person'
+import { useDebounce } from '../../shared/hooks/use-debounce'
 
 export function Persons() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const { debounce } = useDebounce(3000, false)
 
   const inputValue = useMemo(() => {
     return searchParams.get('searchBar') || ''
   }, [searchParams])
 
   useEffect(() => {
-    getPersons()
+    debounce(() => {
+      getPersons()
+    })
   }, [inputValue])
 
   async function getPersons() {
