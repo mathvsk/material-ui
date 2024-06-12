@@ -97,7 +97,7 @@ export function ActionBar({
             onClick={onClickSaveAndClose}
           >
             <Typography variant={'button'} noWrap>
-              Salvar e voltar
+              Salvar e fechar
             </Typography>
           </Button>
         )}
