@@ -1,7 +1,38 @@
 import { Box, Button, Divider, Paper, useTheme } from '@mui/material'
+
 import { Add, ArrowBack, Delete, Save } from '@mui/icons-material'
 
-export function ActionBar() {
+interface IActionBarProps {
+  newButtonText?: string
+
+  showNewButton?: boolean
+  showBackButton?: boolean
+  showDeleteButton?: boolean
+  showSaveButton?: boolean
+  showSaveAndCloseButton?: boolean
+
+  onClickNew?: () => void
+  onClickBack?: () => void
+  onClickDelete?: () => void
+  onClickSave?: () => void
+  onClickSaveAndClose?: () => void
+}
+
+export function ActionBar({
+  newButtonText = 'Novo',
+
+  showNewButton = true,
+  showBackButton = true,
+  showDeleteButton = true,
+  showSaveButton = true,
+  showSaveAndCloseButton = false,
+
+  onClickNew,
+  onClickBack,
+  onClickDelete,
+  onClickSave,
+  onClickSaveAndClose,
+}: IActionBarProps) {
   const theme = useTheme()
 
   return (
@@ -15,49 +46,65 @@ export function ActionBar() {
       height={theme.spacing(7)}
       component={Paper}
     >
-      <Button
-        color="primary"
-        disableElevation
-        variant="contained"
-        startIcon={<Save />}
-      >
-        Salvar
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Save />}
-      >
-        Salvar e voltar
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Delete />}
-      >
-        Apagar
-      </Button>
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<Add />}
-      >
-        Novo
-      </Button>
+      {showSaveButton && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="contained"
+          startIcon={<Save />}
+          onClick={onClickSave}
+        >
+          Salvar
+        </Button>
+      )}
+
+      {showSaveAndCloseButton && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          startIcon={<Save />}
+          onClick={onClickSaveAndClose}
+        >
+          Salvar e voltar
+        </Button>
+      )}
+      {showDeleteButton && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          startIcon={<Delete />}
+          onClick={onClickDelete}
+        >
+          Apagar
+        </Button>
+      )}
+      {showNewButton && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          startIcon={<Add />}
+          onClick={onClickNew}
+        >
+          {newButtonText}
+        </Button>
+      )}
 
       <Divider variant="middle" orientation="vertical" />
 
-      <Button
-        color="primary"
-        disableElevation
-        variant="outlined"
-        startIcon={<ArrowBack />}
-      >
-        Voltar
-      </Button>
+      {showBackButton && (
+        <Button
+          color="primary"
+          disableElevation
+          variant="outlined"
+          startIcon={<ArrowBack />}
+          onClick={onClickBack}
+        >
+          Voltar
+        </Button>
+      )}
     </Box>
   )
 }
