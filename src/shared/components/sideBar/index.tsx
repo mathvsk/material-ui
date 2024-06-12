@@ -4,6 +4,9 @@ import {
   Divider,
   Drawer,
   List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -11,12 +14,15 @@ import {
 import { IChildren } from '../../interface/IChildren.tsx'
 import { useDrawerContext } from '../../contexts/DrawerContext.tsx'
 import { ListItemLink } from '../listItemLink'
+import { useAppThemeContext } from '../../contexts/ThemeContext.tsx'
+import { DarkMode, LightMode } from '@mui/icons-material'
 
 export function SideBar({ children }: IChildren) {
   const theme = useTheme()
   const mobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext()
+  const { toggleTheme } = useAppThemeContext()
 
   return (
     <>
@@ -57,6 +63,17 @@ export function SideBar({ children }: IChildren) {
                   onClick={mobile ? toggleDrawerOpen : undefined}
                 />
               ))}
+            </List>
+          </Box>
+
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <LightMode /> | <DarkMode />
+                </ListItemIcon>
+                <ListItemText primary={'Alternar tema'} />
+              </ListItemButton>
             </List>
           </Box>
         </Box>

@@ -3,6 +3,7 @@ import { amber, green } from '@mui/material/colors'
 
 export const DarkTheme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       light: green[300],
       main: green[500],
@@ -13,11 +14,11 @@ export const DarkTheme = createTheme({
       light: amber[400],
       main: amber[700],
       dark: amber[900],
-      contrastText: '#000',
+      contrastText: '#ffffff',
     },
     background: {
-      default: '#303134', // cor da aplicação
-      paper: '#202124', // cor de card
+      default: '#212121', // cor da aplicação
+      paper: '#171717', // cor de card
     },
   },
 })
