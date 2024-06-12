@@ -8,7 +8,7 @@ export function Dashboard() {
       title={'Dashboard'}
       toolBar={<ToolBar showSearchInput newButtonText={'Novo'} />}
     >
-      <ActionBar showBackButton />
+      <ActionBar showBackButton showSaveAndCloseButton />
       <p>asa</p>
     </BasicLayout>
   )

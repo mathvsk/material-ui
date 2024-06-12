@@ -1,4 +1,13 @@
-import { Box, Button, Divider, Paper, Skeleton, useTheme } from '@mui/material'
+import {
+  Box,
+  Button,
+  Divider,
+  Paper,
+  Skeleton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 
 import { Add, ArrowBack, Delete, Save } from '@mui/icons-material'
 
@@ -46,6 +55,8 @@ export function ActionBar({
   showSaveAndCloseButtonLoading = false,
 }: IActionBarProps) {
   const theme = useTheme()
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'))
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <Box
@@ -66,23 +77,30 @@ export function ActionBar({
           startIcon={<Save />}
           onClick={onClickSave}
         >
-          Salvar
+          <Typography variant={'button'} noWrap>
+            Salvar
+          </Typography>
         </Button>
       )}
 
-      {showSaveButton && <Skeleton width={110} height={60} />}
+      {showSaveButtonLoading && <Skeleton width={110} height={60} />}
 
-      {showSaveAndCloseButton && !showSaveAndCloseButtonLoading && (
-        <Button
-          color="primary"
-          disableElevation
-          variant="outlined"
-          startIcon={<Save />}
-          onClick={onClickSaveAndClose}
-        >
-          Salvar e voltar
-        </Button>
-      )}
+      {showSaveAndCloseButton &&
+        !showSaveAndCloseButtonLoading &&
+        !smDown &&
+        !mdDown && (
+          <Button
+            color="primary"
+            disableElevation
+            variant="outlined"
+            startIcon={<Save />}
+            onClick={onClickSaveAndClose}
+          >
+            <Typography variant={'button'} noWrap>
+              Salvar e voltar
+            </Typography>
+          </Button>
+        )}
 
       {showSaveAndCloseButtonLoading && <Skeleton width={180} height={60} />}
 
@@ -94,13 +112,17 @@ export function ActionBar({
           startIcon={<Delete />}
           onClick={onClickDelete}
         >
-          Apagar
+          <Typography variant={'button'} noWrap>
+            Apagar
+          </Typography>
         </Button>
       )}
 
-      {showDeleteButtonLoading && <Skeleton width={110} height={60} />}
+      {showDeleteButtonLoading && !smDown && !mdDown && (
+        <Skeleton width={110} height={60} />
+      )}
 
-      {showNewButton && !showNewButtonLoading && (
+      {showNewButton && !showNewButtonLoading && !smDown && (
         <Button
           color="primary"
           disableElevation
@@ -108,11 +130,13 @@ export function ActionBar({
           startIcon={<Add />}
           onClick={onClickNew}
         >
-          {newButtonText}
+          <Typography variant={'button'} noWrap>
+            {newButtonText}
+          </Typography>
         </Button>
       )}
 
-      {showNewButtonLoading && <Skeleton width={110} height={60} />}
+      {showNewButtonLoading && !smDown && <Skeleton width={110} height={60} />}
 
       <Divider variant="middle" orientation="vertical" />
 
@@ -124,7 +148,9 @@ export function ActionBar({
           startIcon={<ArrowBack />}
           onClick={onClickBack}
         >
-          Voltar
+          <Typography variant={'button'} noWrap>
+            Voltar
+          </Typography>
         </Button>
       )}
 
