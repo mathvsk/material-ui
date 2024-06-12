@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { BasicLayout } from '../../shared/layouts/basic-layout'
 import { ToolBar } from '../../shared/components/tool-bar'
+import { PersonService } from '../../shared/services/api/person'
 
 export function Persons() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -9,6 +10,20 @@ export function Persons() {
   const inputValue = useMemo(() => {
     return searchParams.get('searchBar') || ''
   }, [searchParams])
+
+  useEffect(() => {
+    getPersons()
+  }, [inputValue])
+
+  async function getPersons() {
+    const result = await PersonService.getAll()
+
+    if (result instanceof Error) {
+      return alert(result.message)
+    }
+
+    console.log(result.data[0].fullName)
+  }
 
   return (
     <BasicLayout
