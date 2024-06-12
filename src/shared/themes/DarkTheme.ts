@@ -18,7 +18,7 @@ export const DarkTheme = createTheme({
     },
     background: {
       default: '#212121', // cor da aplicação
-      paper: '#171717', // cor de card
+      paper: 'rgba(94,94,94,0.18)', // cor de card
     },
   },
 })
