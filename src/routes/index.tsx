@@ -3,8 +3,9 @@ import '@fontsource/roboto' // Importa a fonte Roboto
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useDrawerContext } from '../shared/contexts/DrawerContext.tsx'
 import { useEffect } from 'react'
-import { Fingerprint, Home } from '@mui/icons-material'
+import { Home, LocationCity, People } from '@mui/icons-material'
 import { Dashboard } from '../pages/dashboard'
+import { Persons } from '../pages/cities'
 
 export function AppRoutes() {
   const { setDrawerOptions } = useDrawerContext()
@@ -17,9 +18,9 @@ export function AppRoutes() {
         path: '/dashboard',
       },
       {
-        icon: Fingerprint,
-        label: 'Rota 2',
-        path: '/oi',
+        icon: People,
+        label: 'Persons',
+        path: '/persons',
       },
     ])
   }, [setDrawerOptions])
@@ -27,6 +28,7 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/persons" element={<Persons />} />
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>
   )
