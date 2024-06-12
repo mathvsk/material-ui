@@ -138,7 +138,11 @@ export function ActionBar({
 
       {showNewButtonLoading && !smDown && <Skeleton width={110} height={60} />}
 
-      <Divider variant="middle" orientation="vertical" />
+      {showBackButton &&
+        (showSaveButton ||
+          showSaveAndCloseButton ||
+          showDeleteButton ||
+          showNewButton) && <Divider variant="middle" orientation="vertical" />}
 
       {showBackButton && !showBackButtonLoading && (
         <Button
