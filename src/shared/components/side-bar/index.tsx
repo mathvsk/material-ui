@@ -13,7 +13,7 @@ import {
 
 import { IChildren } from '../../interface/IChildren.tsx'
 import { useDrawerContext } from '../../contexts/DrawerContext.tsx'
-import { ListItemLink } from '../listItemLink'
+import { ListItemLink } from '../list-item-link'
 import { useAppThemeContext } from '../../contexts/ThemeContext.tsx'
 import { DarkMode, LightMode } from '@mui/icons-material'
 

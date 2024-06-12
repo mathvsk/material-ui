@@ -1,5 +1,5 @@
-import { BasicLayout } from '../../shared/layouts/basicLayout'
-import { ToolBar } from '../../shared/components/toolBar'
+import { BasicLayout } from '../../shared/layouts/basic-layout'
+import { ToolBar } from '../../shared/components/tool-bar'
 
 export function Dashboard() {
   return (
