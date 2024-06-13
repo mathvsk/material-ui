@@ -1,14 +1,14 @@
 import { api } from '../axios-config'
 import { Environment } from '../../../environment'
 
-interface IPerson {
+export interface IPersons {
   id: number
   email: string
   cityId: number
   fullName: string
 }
 
-interface IPerson {
+export interface IPerson {
   id: number
   email: string
   cityID: number
@@ -16,7 +16,7 @@ interface IPerson {
 }
 
 type TPersonWithTotal = {
-  data: IPerson[]
+  data: IPersons[]
   totalCount: number
 }
 

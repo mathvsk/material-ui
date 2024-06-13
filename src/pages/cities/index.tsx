@@ -1,19 +1,34 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { BasicLayout } from '../../shared/layouts/basic-layout'
 import { ToolBar } from '../../shared/components/tool-bar'
-import { PersonService } from '../../shared/services/api/person'
+import { IPersons, PersonService } from '../../shared/services/api/person'
 import { useDebounce } from '../../shared/hooks/use-debounce'
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material'
 
 export function Persons() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const { debounce } = useDebounce(3000, false)
+  const { debounce } = useDebounce()
+  const [rows, setRows] = useState<IPersons[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [totalCount, setTotalCount] = useState(0)
 
   const inputValue = useMemo(() => {
     return searchParams.get('searchBar') || ''
   }, [searchParams])
 
   useEffect(() => {
+    // Da pra fazer isso, pq o react com informações basicas, ele não vai renderizar novamente por ser o mesmo valor
+    setIsLoading(true)
+
     debounce(() => {
       getPersons()
     })
@@ -21,12 +36,14 @@ export function Persons() {
 
   async function getPersons() {
     const result = await PersonService.getAll()
+    setIsLoading(false)
 
     if (result instanceof Error) {
       return alert(result.message)
     }
 
-    console.log(result.data[0].fullName)
+    setRows(result.data)
+    setTotalCount(result.totalCount)
   }
 
   return (
@@ -43,7 +60,30 @@ export function Persons() {
         />
       }
     >
-      <p>Teste</p>
+      <TableContainer
+        component={Paper}
+        variant="outlined"
+        sx={{ margin: 1, width: 'auto' }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Actions</TableCell>
+              <TableCell>Full name</TableCell>
+              <TableCell>Email</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell></TableCell>
+                <TableCell>{row.fullName}</TableCell>
+                <TableCell>{row.email}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </BasicLayout>
   )
 }
