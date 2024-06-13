@@ -5,14 +5,17 @@ import { ToolBar } from '../../shared/components/tool-bar'
 import { IPersons, PersonService } from '../../shared/services/api/person'
 import { useDebounce } from '../../shared/hooks/use-debounce'
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from '@mui/material'
+import { Environment } from '../../shared/environment'
 
 export function Persons() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -35,7 +38,7 @@ export function Persons() {
   }, [inputValue])
 
   async function getPersons() {
-    const result = await PersonService.getAll()
+    const result = await PersonService.getAll(1, inputValue)
     setIsLoading(false)
 
     if (result instanceof Error) {
@@ -82,6 +85,20 @@ export function Persons() {
               </TableRow>
             ))}
           </TableBody>
+
+          {totalCount === 0 && !isLoading && (
+            <caption>{Environment.EMPTY_LIST}</caption>
+          )}
+
+          <TableFooter>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant="indeterminate" />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </BasicLayout>
